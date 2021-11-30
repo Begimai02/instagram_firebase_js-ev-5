@@ -1,0 +1,23 @@
+.header {
+  height: 70px;
+  background-color: #fff;
+  padding: 10px;
+  border-bottom: 1px solid lightgrey;
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 935px;
+  margin: 0 auto;
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header__logo {
+  width: 103px;
+  object-fit: contain;
+}
