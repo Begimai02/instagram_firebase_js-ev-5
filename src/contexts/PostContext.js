@@ -9,6 +9,8 @@ import {
   deleteDoc,
   serverTimestamp,
   orderBy,
+  getDoc,
+  updateDoc,
 } from "firebase/firestore";
 
 const postContext = createContext();
@@ -17,6 +19,7 @@ export const usePosts = () => useContext(postContext);
 
 const initialState = {
   posts: [],
+  onePostForEdit: null,
 };
 
 const reducer = (state, action) => {
@@ -25,6 +28,11 @@ const reducer = (state, action) => {
       return {
         ...state,
         posts: action.payload,
+      };
+    case "GET_ONE_POST_FOR_EDIT":
+      return {
+        ...state,
+        onePostForEdit: action.payload,
       };
     default:
       return state;
@@ -73,12 +81,42 @@ const PostContext = ({ children }) => {
     await deleteDoc(doc(firestore, "posts", id));
   };
 
+  // EDIT -----
+  const getOnePostForEdit = async (id) => {
+    const docRef = doc(firestore, "posts", id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      dispatch({
+        type: "GET_ONE_POST_FOR_EDIT",
+        payload: docSnap.data(),
+      });
+    } else {
+      console.log("No such document!");
+    }
+  };
+
+  const saveEditedPost = async (id, editedPost) => {
+    const docRef = doc(firestore, "posts", id);
+    try {
+      await updateDoc(docRef, {
+        image: editedPost.image,
+        desc: editedPost.desc,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <postContext.Provider
       value={{
         posts: state.posts,
+        onePostForEdit: state.onePostForEdit,
         addPost,
         deletePost,
+        getOnePostForEdit,
+        saveEditedPost,
       }}
     >
       {children}

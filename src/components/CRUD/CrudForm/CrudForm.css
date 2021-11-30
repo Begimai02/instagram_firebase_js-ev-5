@@ -1,0 +1,38 @@
+.wrapper {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 5px 20px 12px;
+  border: 1px solid lightgray;
+}
+
+.desc,
+.image {
+  width: 100%;
+  padding: 12px 10px;
+  margin: 6px 0 13px;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.submit {
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.4s;
+}
+
+.submit-edit {
+  background-color: #3d34b6;
+}
+
+.submit-add {
+  background-color: #b6349a;
+}
+
+.submit:hover {
+  opacity: 0.8;
+}

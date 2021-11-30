@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Post.css";
 
 const Post = ({ post, deletePost }) => {
@@ -11,6 +12,12 @@ const Post = ({ post, deletePost }) => {
               {/* {post.userName} */}
               userName
             </h3>
+            <div>
+              <button onClick={() => deletePost(post.docId)}>Del 🗑</button>
+              <Link to={`/edit/${post.docId}`}>
+                <button>Edit ✏️</button>
+              </Link>
+            </div>
           </div>
           <div className="post__header__right"></div>
         </div>
@@ -23,7 +30,6 @@ const Post = ({ post, deletePost }) => {
             </strong>{" "}
             {post.desc}
           </h4>
-          <button onClick={() => deletePost(post.docId)}>Del</button>
         </div>
       </div>
     </div>
