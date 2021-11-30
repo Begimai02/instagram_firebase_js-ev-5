@@ -12,6 +12,7 @@ import {
   getDoc,
   updateDoc,
 } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const postContext = createContext();
 
@@ -41,6 +42,7 @@ const reducer = (state, action) => {
 
 const PostContext = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const q = query(
@@ -72,6 +74,7 @@ const PostContext = ({ children }) => {
         createdAt: serverTimestamp(),
       });
       console.log(docRef.id, "status 200: ok");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -103,6 +106,7 @@ const PostContext = ({ children }) => {
         image: editedPost.image,
         desc: editedPost.desc,
       });
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
